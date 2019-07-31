@@ -138,7 +138,7 @@ at::Tensor center_nms_cpu_kernel(const at::Tensor& dets,
 //      if (ovr < 0.9) {
         auto bdist = std::sqrt((ibx - jbx) * (ibx - jbx) + (iby - jby) * (iby - jby));
         auto mdist = std::sqrt((jcx - icx) * (jcx - icx) + (jcy - icy) * (jcy - icy));
-        auto weight = (8 * bdist) / (mdist + 7 * bdist);
+        auto weight = (8 * bdist + 10) / (mdist + 7 * bdist + 10);
         ovr = ovr * weight;
 //      }
       if (ovr >= threshold)

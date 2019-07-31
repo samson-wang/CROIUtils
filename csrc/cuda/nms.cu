@@ -120,7 +120,7 @@ __global__ void center_nms_kernel(const int n_boxes, const float nms_overlap_thr
 //      if (iou < 0.9) {
         float bdist = sqrtf((ibx - jbx) * (ibx - jbx) + (iby - jby) * (iby - jby));
         float mdist = sqrtf((icx - jcx) * (icx - jcx) + (icy - jcy) * (icy - jcy));
-        float weight = (8 * bdist) / ( mdist + 7 * bdist);
+        float weight = (8 * bdist + 10) / ( mdist + 7 * bdist + 10);
         iou = iou * weight;
 //      }
       if (iou > nms_overlap_thresh) {
