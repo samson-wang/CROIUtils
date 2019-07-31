@@ -136,7 +136,9 @@ at::Tensor center_nms_cpu_kernel(const at::Tensor& dets,
       //std::cout << i << "'th " << ibx << ", " << iby << ", " << icx << ", " << icy << " - " << j << "'th " << jbx << ", " << jby << ", " << jcx << ", " << jcy << " weight" << weight << std::endl;
       auto ovr = inter / (iarea + areas[j] - inter);
 //      if (ovr < 0.9) {
-        auto weight = (std::sqrt((ibx - jbx) * (ibx - jbx) + (iby - jby) * (iby - jby)) + 100.) / (std::sqrt((jcx - icx) * (jcx - icx) + (jcy - icy) * (jcy - icy)) + 100.);
+        auto bdist = std::sqrt((ibx - jbx) * (ibx - jbx) + (iby - jby) * (iby - jby));
+        auto mdist = std::sqrt((jcx - icx) * (jcx - icx) + (jcy - icy) * (jcy - icy));
+        auto weight = (8 * bdist) / (mdist + 7 * bdist);
         ovr = ovr * weight;
 //      }
       if (ovr >= threshold)
