@@ -5,17 +5,17 @@ import torch
 os.environ['CUDA_VISIBLE_DEVICES']='0,1,2,3'
 
 ext_modules=[
-        CUDAExtension('maskrcnn_utils._C',
+        CppExtension('maskrcnn_utils._C',
             [
                 'csrc/vision.cpp',
                 'csrc/cpu/ROIAlign_cpu.cpp',
                 'csrc/cpu/nms_cpu.cpp',
-                'csrc/cuda/ROIAlign_cuda.cu',
-                'csrc/cuda/ROIPool_cuda.cu',
-                'csrc/cuda/SigmoidFocalLoss_cuda.cu',
-                'csrc/cuda/nms.cu',
+                #'csrc/cuda/ROIAlign_cuda.cu',
+                #'csrc/cuda/ROIPool_cuda.cu',
+                #'csrc/cuda/SigmoidFocalLoss_cuda.cu',
+                #'csrc/cuda/nms.cu',
                 ],
-            extra_compile_args=['-DWITH_CUDA', '-O2'],
+            extra_compile_args=['-O2'],
             )
         ]
 
